@@ -298,6 +298,43 @@ select option { background: #0a0f1e; }
 .summary-val { font-family: var(--font-head); font-size: 1.1rem; font-weight: 700; color: var(--accent); }
 .summary-key { font-size: 0.72rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; }
 
+/* ── AI CRITIQUE ── */
+.ai-critique-container { margin-bottom: 40px; animation: fadeInUp 0.8s ease both; }
+.ai-critique-card {
+  padding: 32px;
+  border: 1px solid rgba(239,68,68,0.2);
+  background: linear-gradient(135deg, rgba(239,68,68,0.05), rgba(0,0,0,0.2));
+  position: relative;
+  overflow: hidden;
+}
+.ai-critique-card::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--red), transparent);
+}
+.ai-badge {
+  display: inline-block;
+  background: var(--red);
+  color: #000;
+  font-family: var(--font-head);
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  letter-spacing: 0.1em;
+}
+.ai-critique-content {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text);
+  line-height: 1.5;
+  font-style: italic;
+  font-weight: 500;
+}
+.ai-critique-content::before { content: '"'; font-size: 2rem; color: var(--red); vertical-align: middle; margin-right: 8px; opacity: 0.6; }
+.ai-critique-content::after { content: '"'; font-size: 2rem; color: var(--red); vertical-align: middle; margin-left: 8px; opacity: 0.6; }
+
 .results-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -475,6 +512,15 @@ select option { background: #0a0f1e; }
   background: var(--surface2); border: 1px solid var(--border);
   font-size: 0.8rem; color: var(--text2);
 }
+
+/* Forecast */
+.forecast-container { display: flex; flex-direction: column; gap: 14px; padding: 10px 0; }
+.forecast-item { display: grid; grid-template-columns: 140px 1fr 60px; align-items: center; gap: 16px; }
+.forecast-label { font-size: 0.85rem; color: var(--text2); }
+.forecast-bar-bg { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.forecast-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
+.forecast-val { font-size: 0.85rem; font-weight: 700; text-align: right; }
+.forecast-insight { font-size: 0.8rem; color: var(--text3); margin-top: 4px; font-style: italic; }
 
 /* ── DECISION ENGINE ── */
 .scenario-tabs {

@@ -92,6 +92,16 @@ function renderResults(data) {
     <div class="summary-item"><span class="summary-val">${data.results[0]?.fit_score || 0}/100</span><span class="summary-key">Best Fit Score</span></div>
   `;
 
+  // AI Critique
+  const critiqueContainer = document.getElementById('aiCritiqueContainer');
+  const critiqueContent = document.getElementById('aiCritiqueContent');
+  if (data.ai_critique) {
+    critiqueContent.textContent = data.ai_critique;
+    critiqueContainer.classList.remove('hidden');
+  } else {
+    critiqueContainer.classList.add('hidden');
+  }
+
   // Career cards
   const grid = document.getElementById('resultsGrid');
   grid.innerHTML = '';
@@ -236,6 +246,23 @@ function openModal(careerId) {
     <div class="modal-section">
       <div class="modal-section-title">Entry Routes & Hiring Probabilities</div>
       <div class="routes-list">${routesHtml}</div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-section-title">Job Market Forecast (Now vs 5 Years)</div>
+      <div class="forecast-container">
+        <div class="forecast-item">
+          <div class="forecast-label">Current Demand</div>
+          <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${career.market_demand}%;background:var(--accent)"></div></div>
+          <div class="forecast-val">${career.market_demand}/100</div>
+        </div>
+        <div class="forecast-item">
+          <div class="forecast-label">Demand in 5 Years</div>
+          <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${Math.min(100, Math.round(career.market_demand * (1 + career.growth_potential / 250)))}%;background:var(--green)"></div></div>
+          <div class="forecast-val">${Math.min(100, Math.round(career.market_demand * (1 + career.growth_potential / 250)))}/100</div>
+        </div>
+        <p class="forecast-insight">Growth driven by a <span style="color:var(--accent)">${career.growth_potential}/100</span> growth potential score.</p>
+      </div>
     </div>
 
     <div class="modal-section">

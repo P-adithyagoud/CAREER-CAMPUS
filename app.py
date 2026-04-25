@@ -3,10 +3,12 @@ import json
 import os
 import math
 from dotenv import load_dotenv
+from groq import Groq
 
 load_dotenv()
 
 app = Flask(__name__)
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
 # Load data
 DATA_PATH = os.path.join(os.path.dirname(__file__), 'static', 'data', 'careers.json')
@@ -91,36 +93,37 @@ def score_career(career, profile):
     growth_potential = career['growth_potential']
     learning_ease = 100 - career['learning_difficulty']
 
-    # Weights (total = 1.0)
+    # Brutal Weights (total = 1.0)
+    # If skills are missing, they should have a massive impact.
     if experience == 'beginner':
         weights = {
-            'skills_match': 0.15,
-            'interest_align': 0.25,
+            'skills_match': 0.45,
+            'interest_align': 0.15,
             'cert_rel': 0.10,
-            'timeline_feas': 0.15,
-            'market_demand': 0.20,
-            'growth_potential': 0.10,
+            'timeline_feas': 0.10,
+            'market_demand': 0.10,
+            'growth_potential': 0.05,
             'learning_ease': 0.05
         }
     elif experience == 'intermediate':
         weights = {
-            'skills_match': 0.25,
-            'interest_align': 0.20,
+            'skills_match': 0.50,
+            'interest_align': 0.10,
             'cert_rel': 0.15,
-            'timeline_feas': 0.15,
-            'market_demand': 0.15,
-            'growth_potential': 0.08,
+            'timeline_feas': 0.10,
+            'market_demand': 0.08,
+            'growth_potential': 0.05,
             'learning_ease': 0.02
         }
     else:  # advanced
         weights = {
-            'skills_match': 0.35,
-            'interest_align': 0.15,
+            'skills_match': 0.60,
+            'interest_align': 0.08,
             'cert_rel': 0.15,
-            'timeline_feas': 0.15,
-            'market_demand': 0.12,
-            'growth_potential': 0.06,
-            'learning_ease': 0.02
+            'timeline_feas': 0.10,
+            'market_demand': 0.05,
+            'growth_potential': 0.02,
+            'learning_ease': 0.00
         }
 
     fit_score = (
@@ -132,6 +135,12 @@ def score_career(career, profile):
         growth_potential * weights['growth_potential'] +
         learning_ease * weights['learning_ease']
     )
+
+    # Brutal Penalty: If you have zero matching skills, your score gets nuked.
+    if skills_match < 10:
+        fit_score = fit_score * 0.4
+    elif skills_match < 30:
+        fit_score = fit_score * 0.7
 
     hiring_prob = compute_hiring_probability(fit_score, experience, has_internship, bool(user_certs))
 
@@ -156,8 +165,8 @@ def score_career(career, profile):
         'icon': career['icon'],
         'color': career['color'],
         'description': career['description'],
-        'fit_score': round(fit_score),
-        'hiring_probability': hiring_prob,
+        'fit_score': round(normalize(fit_score)),
+        'hiring_probability': compute_hiring_probability(normalize(fit_score), experience, has_internship, bool(user_certs)),
         'growth_potential': career['growth_potential'],
         'risk_level': career['risk_level'],
         'risk_score': risk_score,
@@ -169,6 +178,31 @@ def score_career(career, profile):
         'timeline_months': career['timeline_months'],
         'components': components
     }
+
+
+def get_ai_insight(career_name, fit_score, profile):
+    try:
+        skills = ", ".join(profile.get('skills', [])) or "None"
+        prompt = f"""
+        You are a brutal career coach. Analyze the following:
+        Career: {career_name}
+        User Fit Score: {fit_score}/100
+        User Skills: {skills}
+        User Experience: {profile.get('experience_level')}
+        
+        If the skills are empty or clearly insufficient for the career, be EXTREMELY brutal. 
+        Tell them exactly why they are currently failing and what specific, hard-hitting skills they are missing.
+        Keep it to 3-4 sentences maximum. Use a professional but harsh 'reality check' tone.
+        """
+        
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": prompt}],
+            model="llama-3.3-70b-versatile",
+        )
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        print(f"AI Insight error: {e}")
+        return "The AI engine is currently over-simulating. Focus on your skill gap."
 
 
 # ─── Routes ───────────────────────────────────────────────────────────────────
@@ -194,6 +228,12 @@ def analyze():
     for i, r in enumerate(results):
         r['rank'] = i + 1
 
+    # AI Reality Check for top match
+    ai_critique = "No data for critique."
+    if results:
+        top = results[0]
+        ai_critique = get_ai_insight(top['title'], top['fit_score'], profile)
+
     return jsonify({
         'status': 'success',
         'profile_summary': {
@@ -202,7 +242,8 @@ def analyze():
             'skills_count': len(profile.get('skills', [])),
             'timeline_years': profile.get('timeline_years', 3)
         },
-        'results': results
+        'results': results,
+        'ai_critique': ai_critique
     })
 
 
