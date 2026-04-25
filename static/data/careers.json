@@ -1,0 +1,216 @@
+{
+  "careers": [
+    {
+      "id": "software_engineer",
+      "title": "Software Engineer",
+      "icon": "💻",
+      "color": "#00d4ff",
+      "description": "Build scalable software systems, applications, and platforms across industries.",
+      "market_demand": 92,
+      "growth_potential": 88,
+      "avg_salary_entry": 75000,
+      "avg_salary_mid": 120000,
+      "avg_salary_senior": 180000,
+      "required_skills": ["programming", "data_structures", "algorithms", "version_control", "system_design"],
+      "relevant_certs": ["AWS", "Google Cloud", "Azure", "Meta Developer", "Oracle Java"],
+      "interests": ["technology", "problem_solving", "building", "logic", "innovation"],
+      "timeline_months": { "beginner": 18, "intermediate": 10, "advanced": 5 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "CS Degree + Internship", "hiring_prob": 87, "months": 12 },
+        { "route": "Bootcamp + Projects", "hiring_prob": 71, "months": 8 },
+        { "route": "Self-taught + Portfolio", "hiring_prob": 58, "months": 14 }
+      ],
+      "learning_difficulty": 72,
+      "top_companies": ["Google", "Microsoft", "Amazon", "Meta", "Apple", "Startups"]
+    },
+    {
+      "id": "data_scientist",
+      "title": "Data Scientist",
+      "icon": "📊",
+      "color": "#a855f7",
+      "description": "Extract insights from complex data to drive strategic business decisions.",
+      "market_demand": 89,
+      "growth_potential": 91,
+      "avg_salary_entry": 80000,
+      "avg_salary_mid": 130000,
+      "avg_salary_senior": 190000,
+      "required_skills": ["python", "statistics", "machine_learning", "data_analysis", "sql"],
+      "relevant_certs": ["Google Data Analytics", "IBM Data Science", "Coursera ML", "TensorFlow Developer"],
+      "interests": ["data", "analytics", "research", "mathematics", "patterns", "AI"],
+      "timeline_months": { "beginner": 24, "intermediate": 14, "advanced": 8 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "MS in Data Science", "hiring_prob": 85, "months": 24 },
+        { "route": "Degree + Kaggle Portfolio", "hiring_prob": 73, "months": 12 },
+        { "route": "Online Certs + Projects", "hiring_prob": 61, "months": 10 }
+      ],
+      "learning_difficulty": 80,
+      "top_companies": ["Google", "Netflix", "Airbnb", "LinkedIn", "Palantir", "Research Labs"]
+    },
+    {
+      "id": "product_manager",
+      "title": "Product Manager",
+      "icon": "🎯",
+      "color": "#f59e0b",
+      "description": "Own product vision and strategy, bridging business, design, and engineering.",
+      "market_demand": 82,
+      "growth_potential": 85,
+      "avg_salary_entry": 85000,
+      "avg_salary_mid": 140000,
+      "avg_salary_senior": 200000,
+      "required_skills": ["communication", "strategy", "analytics", "leadership", "user_research"],
+      "relevant_certs": ["Google PM Certificate", "Pragmatic Institute", "Agile/Scrum", "PMP"],
+      "interests": ["business", "strategy", "leadership", "user_experience", "entrepreneurship"],
+      "timeline_months": { "beginner": 30, "intermediate": 18, "advanced": 10 },
+      "risk_level": "Medium",
+      "entry_routes": [
+        { "route": "Tech Role → APM Program", "hiring_prob": 79, "months": 18 },
+        { "route": "MBA + PM Internship", "hiring_prob": 83, "months": 24 },
+        { "route": "Direct PM Cert", "hiring_prob": 52, "months": 12 }
+      ],
+      "learning_difficulty": 65,
+      "top_companies": ["Google", "Stripe", "Airbnb", "Uber", "Figma", "VC-backed startups"]
+    },
+    {
+      "id": "cybersecurity",
+      "title": "Cybersecurity Analyst",
+      "icon": "🔐",
+      "color": "#10b981",
+      "description": "Protect systems, networks, and data from digital threats and vulnerabilities.",
+      "market_demand": 95,
+      "growth_potential": 93,
+      "avg_salary_entry": 70000,
+      "avg_salary_mid": 110000,
+      "avg_salary_senior": 160000,
+      "required_skills": ["networking", "security_tools", "penetration_testing", "linux", "programming"],
+      "relevant_certs": ["CompTIA Security+", "CEH", "CISSP", "OSCP", "Google Cybersecurity"],
+      "interests": ["security", "hacking", "networks", "problem_solving", "defense"],
+      "timeline_months": { "beginner": 14, "intermediate": 8, "advanced": 5 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "CompTIA Security+ + Labs", "hiring_prob": 78, "months": 8 },
+        { "route": "CS Degree + Security Focus", "hiring_prob": 84, "months": 12 },
+        { "route": "Bug Bounty Portfolio", "hiring_prob": 68, "months": 10 }
+      ],
+      "learning_difficulty": 70,
+      "top_companies": ["Government Agencies", "CrowdStrike", "Palo Alto", "IBM", "Deloitte"]
+    },
+    {
+      "id": "ux_designer",
+      "title": "UX/UI Designer",
+      "icon": "🎨",
+      "color": "#ec4899",
+      "description": "Design intuitive, beautiful digital experiences that users love and businesses need.",
+      "market_demand": 78,
+      "growth_potential": 80,
+      "avg_salary_entry": 60000,
+      "avg_salary_mid": 100000,
+      "avg_salary_senior": 145000,
+      "required_skills": ["figma", "user_research", "prototyping", "visual_design", "usability_testing"],
+      "relevant_certs": ["Google UX Design", "Interaction Design Foundation", "Adobe Certified"],
+      "interests": ["design", "creativity", "user_experience", "psychology", "aesthetics"],
+      "timeline_months": { "beginner": 12, "intermediate": 7, "advanced": 4 },
+      "risk_level": "Medium",
+      "entry_routes": [
+        { "route": "Design Bootcamp + Portfolio", "hiring_prob": 70, "months": 6 },
+        { "route": "Degree + Internship", "hiring_prob": 76, "months": 12 },
+        { "route": "Google UX Cert + Projects", "hiring_prob": 65, "months": 8 }
+      ],
+      "learning_difficulty": 55,
+      "top_companies": ["Apple", "Figma", "Airbnb", "Adobe", "Agencies", "Startups"]
+    },
+    {
+      "id": "higher_studies",
+      "title": "Higher Studies / Research",
+      "icon": "🎓",
+      "color": "#6366f1",
+      "description": "Pursue advanced degrees (MS/PhD) for research, academia, or elite corporate roles.",
+      "market_demand": 75,
+      "growth_potential": 88,
+      "avg_salary_entry": 90000,
+      "avg_salary_mid": 150000,
+      "avg_salary_senior": 220000,
+      "required_skills": ["research", "academic_writing", "mathematics", "specialization", "critical_thinking"],
+      "relevant_certs": ["GRE/GMAT", "Research Publications", "Conference Papers"],
+      "interests": ["research", "academia", "deep_learning", "teaching", "innovation"],
+      "timeline_months": { "beginner": 36, "intermediate": 30, "advanced": 24 },
+      "risk_level": "Medium",
+      "entry_routes": [
+        { "route": "MS at Top University", "hiring_prob": 88, "months": 24 },
+        { "route": "PhD Research Track", "hiring_prob": 82, "months": 48 },
+        { "route": "Online MS (Part-time)", "hiring_prob": 72, "months": 30 }
+      ],
+      "learning_difficulty": 88,
+      "top_companies": ["FAANG Research", "National Labs", "Universities", "Think Tanks"]
+    }
+  ],
+  "skills_catalog": {
+    "programming": ["Python", "JavaScript", "Java", "C++", "TypeScript", "Go", "Rust"],
+    "data": ["SQL", "Pandas", "NumPy", "Tableau", "Power BI", "Excel", "R"],
+    "ml_ai": ["TensorFlow", "PyTorch", "Scikit-learn", "Keras", "OpenCV", "NLP"],
+    "design": ["Figma", "Adobe XD", "Photoshop", "Illustrator", "InVision"],
+    "cloud": ["AWS", "Google Cloud", "Azure", "Docker", "Kubernetes"],
+    "security": ["Kali Linux", "Metasploit", "Wireshark", "Burp Suite", "Nmap"],
+    "soft": ["Leadership", "Communication", "Project Management", "Critical Thinking"]
+  },
+  "decision_scenarios": {
+    "certification_vs_internship": {
+      "title": "Certification Only vs Internship + Certification",
+      "option_a": {
+        "label": "Certification Only",
+        "hiring_prob_mod": 0,
+        "salary_mod": 0,
+        "promotion_speed_mod": -10,
+        "growth_mod": -8,
+        "risk_mod": 15
+      },
+      "option_b": {
+        "label": "Internship + Certification",
+        "hiring_prob_mod": 23,
+        "salary_mod": 12,
+        "promotion_speed_mod": 15,
+        "growth_mod": 18,
+        "risk_mod": -10
+      }
+    },
+    "job_vs_higher_studies": {
+      "title": "Direct Job vs Higher Studies",
+      "option_a": {
+        "label": "Direct Job Placement",
+        "hiring_prob_mod": 5,
+        "salary_mod": -20,
+        "promotion_speed_mod": 10,
+        "growth_mod": -10,
+        "risk_mod": 5
+      },
+      "option_b": {
+        "label": "Higher Studies First",
+        "hiring_prob_mod": 15,
+        "salary_mod": 35,
+        "promotion_speed_mod": -5,
+        "growth_mod": 25,
+        "risk_mod": 10
+      }
+    },
+    "startup_vs_corporate": {
+      "title": "Startup vs Corporate Job",
+      "option_a": {
+        "label": "Startup",
+        "hiring_prob_mod": -5,
+        "salary_mod": -10,
+        "promotion_speed_mod": 30,
+        "growth_mod": 25,
+        "risk_mod": 30
+      },
+      "option_b": {
+        "label": "Corporate",
+        "hiring_prob_mod": 10,
+        "salary_mod": 15,
+        "promotion_speed_mod": -5,
+        "growth_mod": 5,
+        "risk_mod": -15
+      }
+    }
+  }
+}

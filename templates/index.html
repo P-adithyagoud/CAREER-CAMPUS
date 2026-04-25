@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Compass – AI Career Decision Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-text">Career<span class="accent">Compass</span></span>
+    </div>
+    <div class="nav-tag">AI Career Decision Engine</div>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero">
+  <div class="hero-bg">
+    <div class="grid-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Powered by Rule-Based Intelligence + AI</div>
+    <h1 class="hero-title">
+      Test Your Future<br />
+      <span class="gradient-text">Before Living It</span>
+    </h1>
+    <p class="hero-sub">
+      Stop guessing. Start simulating. Career Compass runs your career decisions through a precision scoring engine — showing you exactly which path leads where.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">6</span><span class="stat-label">Career Paths</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-num">7</span><span class="stat-label">Fit Dimensions</span></div>
+      <div class="stat-div"></div>
+      <div class="stat"><span class="stat-num">3</span><span class="stat-label">Decision Scenarios</span></div>
+    </div>
+    <button class="btn-primary" onclick="scrollToForm()">Build My Career Twin →</button>
+  </div>
+</section>
+
+<!-- ── FORM SECTION ── -->
+<section class="form-section" id="form-section">
+  <div class="section-label">STEP 1 — CAREER DIGITAL TWIN</div>
+  <h2 class="section-title">Create Your Career Profile</h2>
+  <p class="section-sub">Answer honestly. The engine scores you across 7 dimensions to simulate your future.</p>
+
+  <div class="form-card glass">
+    <form id="profileForm">
+
+      <!-- Row 1 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="name" placeholder="e.g. Arjun Sharma" required />
+        </div>
+        <div class="form-group">
+          <label>Education Background</label>
+          <select id="education">
+            <option value="high_school">High School</option>
+            <option value="undergraduate" selected>Undergraduate (B.Tech / BCA / BSc)</option>
+            <option value="graduate">Graduate (M.Tech / MBA / MSc)</option>
+            <option value="diploma">Diploma</option>
+            <option value="self_taught">Self-Taught</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Experience Level</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="experience" value="beginner" checked />
+              <span class="radio-label">🌱 Beginner</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="experience" value="intermediate" />
+              <span class="radio-label">⚡ Intermediate</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="experience" value="advanced" />
+              <span class="radio-label">🔥 Advanced</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Target Timeline</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="timeline" value="1" />
+              <span class="radio-label">1 Year</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="timeline" value="3" checked />
+              <span class="radio-label">3 Years</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="timeline" value="5" />
+              <span class="radio-label">5 Years</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills -->
+      <div class="form-group full">
+        <label>Current Skills <span class="label-hint">(select all that apply)</span></label>
+        <div class="skill-grid" id="skillGrid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <!-- Interests -->
+      <div class="form-group full">
+        <label>Interests & Passions</label>
+        <div class="interest-grid" id="interestGrid">
+          <label class="chip-label"><input type="checkbox" value="technology" /><span>Technology</span></label>
+          <label class="chip-label"><input type="checkbox" value="problem_solving" /><span>Problem Solving</span></label>
+          <label class="chip-label"><input type="checkbox" value="data" /><span>Data & Analytics</span></label>
+          <label class="chip-label"><input type="checkbox" value="design" /><span>Design & Creativity</span></label>
+          <label class="chip-label"><input type="checkbox" value="business" /><span>Business & Strategy</span></label>
+          <label class="chip-label"><input type="checkbox" value="research" /><span>Research</span></label>
+          <label class="chip-label"><input type="checkbox" value="security" /><span>Cybersecurity</span></label>
+          <label class="chip-label"><input type="checkbox" value="AI" /><span>AI & Machine Learning</span></label>
+          <label class="chip-label"><input type="checkbox" value="leadership" /><span>Leadership</span></label>
+          <label class="chip-label"><input type="checkbox" value="building" /><span>Building Products</span></label>
+          <label class="chip-label"><input type="checkbox" value="entrepreneurship" /><span>Entrepreneurship</span></label>
+          <label class="chip-label"><input type="checkbox" value="mathematics" /><span>Mathematics</span></label>
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="form-group full">
+        <label>Certifications <span class="label-hint">(comma-separated, or leave blank)</span></label>
+        <input type="text" id="certifications" placeholder="e.g. AWS Cloud Practitioner, Google Analytics, CompTIA Security+" />
+      </div>
+
+      <!-- Row 3 -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>Do you have internship experience?</label>
+          <div class="radio-group">
+            <label class="radio-card">
+              <input type="radio" name="internship" value="true" />
+              <span class="radio-label">✅ Yes</span>
+            </label>
+            <label class="radio-card">
+              <input type="radio" name="internship" value="false" checked />
+              <span class="radio-label">❌ No</span>
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Target Career Goal <span class="label-hint">(optional)</span></label>
+          <input type="text" id="targetGoal" placeholder="e.g. Join Google as SWE, Build a startup, Get into ML research" />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary btn-full" id="analyzeBtn">
+        <span class="btn-text">⚡ Simulate My Career Paths</span>
+        <span class="btn-loader hidden">Analyzing...</span>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ── RESULTS ── -->
+<section class="results-section hidden" id="results-section">
+  <div class="section-label">STEP 2 — FUTURE PATH SIMULATION</div>
+  <h2 class="section-title">Your Career Fit Analysis</h2>
+  <p class="section-sub">Scored across 7 weighted dimensions. Ranked by fit, not assumption.</p>
+
+  <div class="profile-summary glass" id="profileSummary"></div>
+
+  <div class="results-grid" id="resultsGrid"></div>
+
+  <!-- Detail Modal -->
+  <div class="modal-overlay hidden" id="modalOverlay">
+    <div class="modal glass" id="careerModal">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DECISION ENGINE ── -->
+<section class="decision-section hidden" id="decision-section">
+  <div class="section-label">STEP 3 — DECISION IMPACT ENGINE</div>
+  <h2 class="section-title">Compare Critical Decisions</h2>
+  <p class="section-sub">See the measurable impact of your career choices before committing to them.</p>
+
+  <div class="scenario-tabs">
+    <button class="tab-btn active" data-scenario="certification_vs_internship">Cert vs Internship</button>
+    <button class="tab-btn" data-scenario="job_vs_higher_studies">Job vs Higher Studies</button>
+    <button class="tab-btn" data-scenario="startup_vs_corporate">Startup vs Corporate</button>
+  </div>
+
+  <div class="decision-grid" id="decisionGrid">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="footer-brand">◈ Career<span class="accent">Compass</span></div>
+  <p>AI Career Decision Engine · Built for Hackathon · Powered by Rule-Based Intelligence</p>
+</footer>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
