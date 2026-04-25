@@ -4,11 +4,19 @@ import os
 import math
 from dotenv import load_dotenv
 from groq import Groq
+from supabase import create_client, Client
 
 load_dotenv()
 
 app = Flask(__name__)
 client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+
+# Supabase Setup
+url = os.environ.get("SUPABASE_URL")
+key = os.environ.get("SUPABASE_KEY")
+supabase: Client = None
+if url and key and "your_supabase" not in url:
+    supabase = create_client(url, key)
 
 # Load data
 DATA_PATH = os.path.join(os.path.dirname(__file__), 'static', 'data', 'careers.json')
@@ -234,6 +242,23 @@ def analyze():
         top = results[0]
         ai_critique = get_ai_insight(top['title'], top['fit_score'], profile)
 
+    # Persist Search History to Supabase
+    if supabase and results:
+        top = results[0]
+        try:
+            supabase.table('search_history').insert({
+                'education': profile.get('education'),
+                'target_career': profile.get('target_goal', 'Not specified'),
+                'selected_path': top['title'],
+                'experience_level': profile.get('experience_level'),
+                'career_fit_score': top['fit_score'],
+                'hiring_probability': top['hiring_probability'],
+                'growth_potential': top['growth_potential'],
+                'risk_level': top['risk_level']
+            }).execute()
+        except Exception as e:
+            print(f"Supabase error (search_history): {e}")
+
     return jsonify({
         'status': 'success',
         'profile_summary': {
@@ -319,6 +344,20 @@ def decision_impact():
         val = base + mod
         return round(normalize(val))
 
+    # Persist Decision History to Supabase
+    if supabase:
+        try:
+            recommended = "Option A" if scenario['option_a']['hiring_probability'] > scenario['option_b']['hiring_probability'] else "Option B"
+            supabase.table('decision_history').insert({
+                'option_a': scenario['option_a']['label'],
+                'option_b': scenario['option_b']['label'],
+                'recommended_choice': recommended,
+                'comparison_result': f"A: {scenario['option_a']['hiring_probability']}% vs B: {scenario['option_b']['hiring_probability']}%",
+                'impact_summary': f"Comparison for {scenario['title']}"
+            }).execute()
+        except Exception as e:
+            print(f"Supabase error (decision_history): {e}")
+
     return jsonify({
         'status': 'success',
         'scenario': {
@@ -342,6 +381,46 @@ def decision_impact():
             }
         }
     })
+
+
+@app.route('/api/history', methods=['GET'])
+def get_history():
+    if not supabase:
+        return jsonify({'error': 'Database not connected'}), 503
+    
+    try:
+        searches = supabase.table('search_history').select('*').order('created_at', desc=True).limit(10).execute()
+        decisions = supabase.table('decision_history').select('*').order('created_at', desc=True).limit(10).execute()
+        reports = supabase.table('saved_reports').select('*').order('created_at', desc=True).limit(10).execute()
+        
+        return jsonify({
+            'status': 'success',
+            'searches': searches.data,
+            'decisions': decisions.data,
+            'reports': reports.data
+        })
+    except Exception as e:
+        print(f"DEBUG: History failed: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/save-report', methods=['POST'])
+def save_report():
+    if not supabase:
+        return jsonify({'error': 'Database not connected'}), 503
+    
+    data = request.get_json()
+    try:
+        res = supabase.table('saved_reports').insert({
+            'final_best_path': data.get('best_path'),
+            'career_growth_score': data.get('growth_score'),
+            'roadmap_summary': data.get('roadmap'),
+            'recommendations': data.get('recommendations')
+        }).execute()
+        return jsonify({'status': 'success', 'data': res.data})
+    except Exception as e:
+        print(f"DEBUG: Save report failed: {e}")
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/api/skills', methods=['GET'])

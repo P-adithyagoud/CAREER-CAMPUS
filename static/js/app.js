@@ -8,6 +8,7 @@ let topCareerMetrics = null;
 document.addEventListener('DOMContentLoaded', async () => {
   setupTabs();
   document.getElementById('profileForm').addEventListener('submit', handleSubmit);
+  loadVault();
 });
 
 // ── Scroll to form ──────────────────────────────────────────────────────────
@@ -50,7 +51,7 @@ async function handleSubmit(e) {
       body: JSON.stringify(profile)
     });
     const data = await res.json();
-    globalResults = data;
+    globalResults = data.results;
     renderResults(data);
 
     // Trigger decision engine with top career metrics
@@ -64,6 +65,7 @@ async function handleSubmit(e) {
       };
       await loadDecisionScenario(activeScenario);
       document.getElementById('decision-section').classList.remove('hidden');
+      loadVault(); // Refresh vault after simulation
     }
   } catch (err) {
     alert('Analysis failed. Please try again.');
@@ -177,7 +179,7 @@ function buildCareerCard(career, index) {
 // ── Modal ─────────────────────────────────────────────────────────────────────
 function openModal(careerId) {
   if (!globalResults) return;
-  const career = globalResults.results.find(r => r.career_id === careerId);
+  const career = globalResults.find(r => r.career_id === careerId);
   if (!career) return;
 
   const content = document.getElementById('modalContent');
@@ -276,6 +278,11 @@ function openModal(careerId) {
     <div class="modal-section">
       <div class="modal-section-title">Top Hiring Companies</div>
       <div class="companies-list">${companiesHtml}</div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">Close Simulation</button>
+      <button class="btn btn-primary" onclick="savePath('${career.career_id}')">🔖 Save This Path</button>
     </div>
   `;
 
@@ -402,6 +409,119 @@ function renderDecisionGrid(scenario) {
     `;
     grid.appendChild(card);
   });
+  loadVault(); // Refresh vault after decision
+}
+
+// ── Vault Logic ─────────────────────────────────────────────────────────────
+async function loadVault() {
+  try {
+    const res = await fetch('/api/history');
+    const data = await res.json();
+    if (data.status === 'success') {
+      renderGrowthChart(data.searches);
+      renderHistoryList(data.searches);
+      renderSavedPaths(data.reports);
+    }
+  } catch (e) {
+    console.error('Failed to load vault', e);
+  }
+}
+
+function renderGrowthChart(searches) {
+  const chart = document.getElementById('growthChart');
+  const momentumEl = document.getElementById('growthMomentum');
+  
+  if (!searches || searches.length < 2) {
+    chart.innerHTML = '<div class="empty-state">Perform more simulations to track growth trends.</div>';
+    momentumEl.textContent = '+0%';
+    return;
+  }
+
+  // Take last 7 simulations for the chart
+  const recent = [...searches].reverse().slice(-7);
+  chart.innerHTML = recent.map(s => {
+    const date = new Date(s.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `
+      <div class="growth-bar-wrapper">
+        <div class="growth-bar animate-bar" style="height:${s.career_fit_score}%" data-score="${s.career_fit_score}"></div>
+        <span class="growth-date">${date}</span>
+      </div>
+    `;
+  }).join('');
+
+  // Calculate momentum (difference between last two)
+  const last = recent[recent.length - 1].career_fit_score;
+  const prev = recent[recent.length - 2].career_fit_score;
+  const diff = last - prev;
+  momentumEl.textContent = `${diff >= 0 ? '+' : ''}${diff}%`;
+  momentumEl.className = `meta-val ${diff >= 0 ? 'text-green' : 'text-red'}`;
+}
+
+function renderHistoryList(searches) {
+  const list = document.getElementById('historyList');
+  if (!searches || searches.length === 0) {
+    list.innerHTML = '<div class="empty-state">No history found.</div>';
+    return;
+  }
+
+  list.innerHTML = searches.map(s => {
+    const date = new Date(s.created_at).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    return `
+      <div class="history-item">
+        <div class="history-info">
+          <span class="history-career">${s.selected_path}</span>
+          <span class="history-date">${date}</span>
+        </div>
+        <div class="history-score">${s.career_fit_score}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderSavedPaths(reports) {
+  const list = document.getElementById('savedList');
+  if (!reports || reports.length === 0) {
+    list.innerHTML = '<div class="empty-state">No saved paths found.</div>';
+    return;
+  }
+
+  list.innerHTML = reports.map(r => {
+    const date = new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    return `
+      <div class="history-item" style="border-left: 3px solid var(--accent2)">
+        <div class="history-info">
+          <span class="history-career" style="color:var(--accent2)">${r.final_best_path}</span>
+          <span class="history-date">Saved on ${date}</span>
+        </div>
+        <div class="history-score">★</div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function savePath(careerId) {
+  const career = globalResults.find(r => r.career_id === careerId);
+  if (!career) return;
+
+  try {
+    const res = await fetch('/api/save-report', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        best_path: career.title,
+        growth_score: career.growth_potential,
+        roadmap: career.description,
+        recommendations: career.entry_routes.map(rt => rt.route).join(', ')
+      })
+    });
+    const data = await res.json();
+    if (data.status === 'success') {
+      alert('Career path saved to your Personal Vault!');
+      loadVault();
+    }
+  } catch (e) {
+    alert('Failed to save path.');
+  }
 }
 
 // ── Utils ─────────────────────────────────────────────────────────────────────

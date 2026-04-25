@@ -218,6 +218,60 @@
   </div>
 </section>
 
+<!-- ── PERSONAL CAREER VAULT ── -->
+<section class="vault-section" id="vault-section">
+  <div class="section-label">STEP 4 — PERSONAL CAREER VAULT</div>
+  <h2 class="section-title">Persistent Career Intelligence</h2>
+  <p class="section-sub">Your history, growth trends, and saved high-fidelity reports.</p>
+
+  <div class="vault-grid">
+    <!-- 1. Saved Career Paths (Priority) -->
+    <div class="vault-card glass saved-card">
+      <div class="vault-card-header">
+        <span class="vault-card-icon">🔖</span>
+        <span class="vault-card-title">Saved Career Paths</span>
+      </div>
+      <div class="history-list" id="savedList">
+        <div class="empty-state">No saved paths yet.</div>
+      </div>
+    </div>
+
+    <!-- 2. Growth Tracker -->
+    <div class="vault-card glass growth-card">
+      <div class="vault-card-header">
+        <span class="vault-card-icon">📈</span>
+        <span class="vault-card-title">Career Growth Tracker</span>
+      </div>
+      <div class="growth-chart-container">
+        <div id="growthChart" class="growth-chart">
+          <div class="empty-state">Run simulations to track growth.</div>
+        </div>
+      </div>
+      <div class="growth-meta">
+        <div class="meta-item">
+          <span class="meta-label">Momentum</span>
+          <span class="meta-val text-green" id="growthMomentum">+0%</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Reliability</span>
+          <span class="meta-val" id="growthReliability">High</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Recent Simulation History (Full Width) -->
+    <div class="vault-card glass history-card full-width">
+      <div class="vault-card-header">
+        <span class="vault-card-icon">🕒</span>
+        <span class="vault-card-title">Recent Simulation History</span>
+      </div>
+      <div class="history-list" id="historyList">
+        <div class="empty-state">No history found.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── FOOTER ── -->
 <footer class="footer">
   <div class="footer-brand">◈ Career<span class="accent">Compass</span></div>
