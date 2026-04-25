@@ -6,7 +6,6 @@ let topCareerMetrics = null;
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
-  await loadSkills();
   setupTabs();
   document.getElementById('profileForm').addEventListener('submit', handleSubmit);
 });
@@ -16,26 +15,6 @@ function scrollToForm() {
   document.getElementById('form-section').scrollIntoView({ behavior: 'smooth' });
 }
 
-// ── Load Skills from API ────────────────────────────────────────────────────
-async function loadSkills() {
-  try {
-    const res = await fetch('/api/skills');
-    const skills = await res.json();
-    const grid = document.getElementById('skillGrid');
-    const allSkills = [];
-    for (const [cat, items] of Object.entries(skills)) {
-      items.forEach(s => allSkills.push({ skill: s, category: cat }));
-    }
-    allSkills.forEach(({ skill }) => {
-      const label = document.createElement('label');
-      label.className = 'chip-label';
-      label.innerHTML = `<input type="checkbox" value="${skill.toLowerCase()}" /><span>${skill}</span>`;
-      grid.appendChild(label);
-    });
-  } catch (e) {
-    console.error('Failed to load skills', e);
-  }
-}
 
 // ── Form Submit ──────────────────────────────────────────────────────────────
 async function handleSubmit(e) {
@@ -46,7 +25,8 @@ async function handleSubmit(e) {
   btn.querySelector('.btn-loader').classList.remove('hidden');
   btn.disabled = true;
 
-  const skills = [...document.querySelectorAll('#skillGrid input:checked')].map(i => i.value);
+  const skillsRaw = document.getElementById('skillsInput').value;
+  const skills = skillsRaw ? skillsRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
   const interests = [...document.querySelectorAll('#interestGrid input:checked')].map(i => i.value);
   const certRaw = document.getElementById('certifications').value;
   const certs = certRaw ? certRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
