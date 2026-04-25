@@ -249,19 +249,9 @@ function openModal(careerId) {
     </div>
 
     <div class="modal-section">
-      <div class="modal-section-title">Job Market Forecast (Now vs 5 Years)</div>
-      <div class="forecast-container">
-        <div class="forecast-item">
-          <div class="forecast-label">Current Demand</div>
-          <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${career.market_demand}%;background:var(--accent)"></div></div>
-          <div class="forecast-val">${career.market_demand}/100</div>
-        </div>
-        <div class="forecast-item">
-          <div class="forecast-label">Demand in 5 Years</div>
-          <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${Math.min(100, Math.round(career.market_demand * (1 + career.growth_potential / 250)))}%;background:var(--green)"></div></div>
-          <div class="forecast-val">${Math.min(100, Math.round(career.market_demand * (1 + career.growth_potential / 250)))}/100</div>
-        </div>
-        <p class="forecast-insight">Growth driven by a <span style="color:var(--accent)">${career.growth_potential}/100</span> growth potential score.</p>
+      <div class="modal-section-title">Job Market Forecast (AI Simulation)</div>
+      <div class="forecast-container" id="aiForecastContainer">
+        <div class="loading-state-sm"><div class="loader-ring-sm"></div> AI analyzing last 5 years of industry data...</div>
       </div>
     </div>
 
@@ -290,6 +280,40 @@ function openModal(careerId) {
   `;
 
   document.getElementById('modalOverlay').classList.remove('hidden');
+  
+  // Load AI Forecast async
+  loadAIForecast(career.title);
+}
+
+async function loadAIForecast(careerName) {
+  const container = document.getElementById('aiForecastContainer');
+  try {
+    const res = await fetch('/api/ai-forecast', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ career_name: careerName })
+    });
+    const data = await res.json();
+    
+    container.innerHTML = `
+      <div class="forecast-item">
+        <div class="forecast-label">Current Demand</div>
+        <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${data.current}%;background:var(--accent)"></div></div>
+        <div class="forecast-val">${data.current}/100</div>
+      </div>
+      <div class="forecast-item">
+        <div class="forecast-label">Demand in 5 Years</div>
+        <div class="forecast-bar-bg"><div class="forecast-bar" style="width:${data.future}%;background:var(--green)"></div></div>
+        <div class="forecast-val">${data.future}/100</div>
+      </div>
+      <p class="forecast-insight" style="color:var(--text);border-left:2px solid var(--red);padding-left:12px;margin-top:10px">
+        <span style="color:var(--red);font-weight:800;font-size:0.7rem;display:block;margin-bottom:4px">BRUTAL MARKET CRITIQUE</span>
+        ${data.summary}
+      </p>
+    `;
+  } catch (e) {
+    container.innerHTML = `<p style="color:var(--text3)">Failed to simulate market forecast.</p>`;
+  }
 }
 
 function closeModal() {

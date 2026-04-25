@@ -586,6 +586,8 @@ select option { background: #0a0f1e; }
   animation: spin 0.8s linear infinite;
   margin: 0 auto 16px;
 }
+.loading-state-sm { display: flex; align-items: center; gap: 10px; padding: 20px; color: var(--text3); font-size: 0.85rem; }
+.loader-ring-sm { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ── FOOTER ── */

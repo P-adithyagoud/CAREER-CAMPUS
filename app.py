@@ -247,6 +247,55 @@ def analyze():
     })
 
 
+def get_ai_demand_forecast(career_name):
+    try:
+        prompt = f"""
+        You are a brutal market analyst. Analyze the job market for: {career_name}.
+        Based on the last 5 years of industry data and current AI disruption, provide two scores (0-100) and a brutal 2-sentence summary.
+        Format your response EXACTLY like this:
+        CURRENT_SCORE: [number]
+        FUTURE_SCORE: [number]
+        SUMMARY: [brutal summary]
+        
+        If the market is over-saturated (like entry-level web dev), be honest and brutal. If AI is replacing the role, say so.
+        """
+        
+        chat_completion = client.chat.completions.create(
+            messages=[{"role": "user", "content": prompt}],
+            model="llama-3.3-70b-versatile",
+        )
+        response = chat_completion.choices[0].message.content
+        
+        # Simple parsing
+        current = 50
+        future = 50
+        summary = "No summary available."
+        
+        for line in response.split('\n'):
+            if "CURRENT_SCORE:" in line:
+                current = int(''.join(filter(str.isdigit, line)))
+            elif "FUTURE_SCORE:" in line:
+                future = int(''.join(filter(str.isdigit, line)))
+            elif "SUMMARY:" in line:
+                summary = line.split("SUMMARY:")[1].strip()
+                
+        return {"current": current, "future": future, "summary": summary}
+    except Exception as e:
+        print(f"AI Forecast error: {e}")
+        return {"current": 50, "future": 50, "summary": "Market volatility prevents AI simulation."}
+
+
+@app.route('/api/ai-forecast', methods=['POST'])
+def ai_forecast():
+    data = request.get_json()
+    career_name = data.get('career_name')
+    if not career_name:
+        return jsonify({'error': 'No career name provided'}), 400
+    
+    forecast = get_ai_demand_forecast(career_name)
+    return jsonify(forecast)
+
+
 @app.route('/api/decision-impact', methods=['POST'])
 def decision_impact():
     data = request.get_json()
