@@ -143,6 +143,143 @@
       ],
       "learning_difficulty": 88,
       "top_companies": ["FAANG Research", "National Labs", "Universities", "Think Tanks"]
+    },
+    {
+      "id": "civil_services",
+      "title": "Civil Services (IAS/IPS/Group A)",
+      "icon": "🏛️",
+      "color": "#fbbf24",
+      "description": "Administrative and law enforcement roles in government departments, focusing on policy implementation and public welfare.",
+      "market_demand": 95,
+      "growth_potential": 98,
+      "avg_salary_entry": 60000,
+      "avg_salary_mid": 110000,
+      "avg_salary_senior": 250000,
+      "required_skills": ["administration", "policy", "governance", "public_speaking", "ethics", "current_affairs"],
+      "relevant_certs": ["UPSC", "State PSC", "Group A Cert"],
+      "interests": ["govt_jobs", "leadership", "business", "problem_solving", "research"],
+      "timeline_months": { "beginner": 36, "intermediate": 24, "advanced": 12 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "UPSC Civil Services Exam", "hiring_prob": 2, "months": 24 },
+        { "route": "State Public Service Commission", "hiring_prob": 5, "months": 18 },
+        { "route": "SSC CGL / Group B", "hiring_prob": 15, "months": 12 }
+      ],
+      "learning_difficulty": 95,
+      "top_companies": ["Central Government", "State Government", "Public Sector Undertakings", "NITI Aayog"]
+    },
+    {
+      "id": "banking_govt",
+      "title": "Public Sector Banking (SBI/IBPS PO)",
+      "icon": "🏦",
+      "color": "#3b82f6",
+      "description": "Officer-level roles in government banks focusing on financial operations, credit analysis, and branch management.",
+      "market_demand": 90,
+      "growth_potential": 85,
+      "avg_salary_entry": 55000,
+      "avg_salary_mid": 95000,
+      "avg_salary_senior": 180000,
+      "required_skills": ["aptitude", "banking_awareness", "finance", "communication", "reasoning"],
+      "relevant_certs": ["IBPS PO", "SBI PO", "JAIIB/CAIIB"],
+      "interests": ["govt_jobs", "data", "business", "mathematics"],
+      "timeline_months": { "beginner": 12, "intermediate": 8, "advanced": 4 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "IBPS PO Competitive Exam", "hiring_prob": 3, "months": 12 },
+        { "route": "SBI PO Selection", "hiring_prob": 2, "months": 12 }
+      ],
+      "learning_difficulty": 70,
+      "top_companies": ["SBI", "Bank of Baroda", "Punjab National Bank", "RBI"]
+    },
+    {
+      "id": "ssc_inspector",
+      "title": "SSC CGL Inspector (Income Tax/Excise)",
+      "icon": "🕵️",
+      "color": "#ef4444",
+      "description": "Executive roles in Central Government departments focusing on auditing, investigation, and tax collection.",
+      "market_demand": 94,
+      "growth_potential": 82,
+      "avg_salary_entry": 52000,
+      "avg_salary_mid": 88000,
+      "avg_salary_senior": 150000,
+      "required_skills": ["auditing", "law", "investigation", "aptitude", "logic"],
+      "relevant_certs": ["SSC CGL", "Audit Certification"],
+      "interests": ["govt_jobs", "security", "problem_solving", "leadership"],
+      "timeline_months": { "beginner": 18, "intermediate": 12, "advanced": 6 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "SSC CGL Tier 1 & 2", "hiring_prob": 1, "months": 18 }
+      ],
+      "learning_difficulty": 75,
+      "top_companies": ["Income Tax Dept", "Central Excise", "CBI", "CAG"]
+    },
+    {
+      "id": "defense_officer",
+      "title": "Defense Services Officer (Army/Navy/Air Force)",
+      "icon": "⚔️",
+      "color": "#065f46",
+      "description": "Leadership roles in the armed forces, commanding units and handling high-stakes national security operations.",
+      "market_demand": 85,
+      "growth_potential": 95,
+      "avg_salary_entry": 85000,
+      "avg_salary_mid": 150000,
+      "avg_salary_senior": 300000,
+      "required_skills": ["leadership", "discipline", "physical_fitness", "strategy", "bravery"],
+      "relevant_certs": ["NDA", "CDS", "AFCAT"],
+      "interests": ["govt_jobs", "leadership", "security", "innovation"],
+      "timeline_months": { "beginner": 48, "intermediate": 36, "advanced": 12 },
+      "risk_level": "High",
+      "entry_routes": [
+        { "route": "NDA Exam (Post 12th)", "hiring_prob": 1, "months": 48 },
+        { "route": "CDS Exam (Post Graduation)", "hiring_prob": 2, "months": 18 }
+      ],
+      "learning_difficulty": 90,
+      "top_companies": ["Indian Army", "Indian Navy", "Indian Air Force"]
+    },
+    {
+      "id": "railway_officer",
+      "title": "Railway Administrative Officer (IRMS)",
+      "icon": "🚂",
+      "color": "#1e3a8a",
+      "description": "Managing the vast infrastructure and operations of the national railway network.",
+      "market_demand": 88,
+      "growth_potential": 85,
+      "avg_salary_entry": 65000,
+      "avg_salary_mid": 120000,
+      "avg_salary_senior": 220000,
+      "required_skills": ["operations", "logistics", "management", "technical_knowledge"],
+      "relevant_certs": ["IRMS (UPSC)", "IES"],
+      "interests": ["govt_jobs", "leadership", "building", "technology"],
+      "timeline_months": { "beginner": 24, "intermediate": 18, "advanced": 9 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "IRMS (via UPSC)", "hiring_prob": 3, "months": 24 }
+      ],
+      "learning_difficulty": 85,
+      "top_companies": ["Indian Railways", "RVNL", "IRCON", "CONCOR"]
+    },
+    {
+      "id": "psu_engineer",
+      "title": "PSU Technical Officer (ONGC/NTPC/IOCL)",
+      "icon": "🛠️",
+      "color": "#0ea5e9",
+      "description": "Technical leadership roles in state-owned enterprises, handling large-scale engineering and energy projects.",
+      "market_demand": 92,
+      "growth_potential": 88,
+      "avg_salary_entry": 75000,
+      "avg_salary_mid": 130000,
+      "avg_salary_senior": 280000,
+      "required_skills": ["engineering", "project_management", "technical_analysis", "safety"],
+      "relevant_certs": ["GATE", "IES", "Industry Certs"],
+      "interests": ["govt_jobs", "technology", "building", "problem_solving"],
+      "timeline_months": { "beginner": 12, "intermediate": 9, "advanced": 6 },
+      "risk_level": "Low",
+      "entry_routes": [
+        { "route": "GATE Score + Interview", "hiring_prob": 5, "months": 12 },
+        { "route": "Direct PSU Recruitment", "hiring_prob": 4, "months": 10 }
+      ],
+      "learning_difficulty": 80,
+      "top_companies": ["ONGC", "IOCL", "NTPC", "BHEL", "GAIL", "BARC"]
     }
   ],
   "skills_catalog": {

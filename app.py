@@ -226,7 +226,20 @@ def analyze():
         return jsonify({'error': 'No profile data provided'}), 400
 
     results = []
+    user_interests = profile.get('interests', [])
+    
     for career in CAREERS:
+        is_govt_job = 'govt_jobs' in career.get('interests', [])
+        is_user_interested_in_govt = 'govt_jobs' in user_interests
+        
+        # 1. If user didn't select Govt Jobs, hide all Govt Careers
+        if is_govt_job and not is_user_interested_in_govt:
+            continue
+            
+        # 2. If user EXPLICITLY selected Govt Jobs, ONLY show Govt Careers (Exclusive Mode)
+        if is_user_interested_in_govt and not is_govt_job:
+            continue
+            
         scored = score_career(career, profile)
         results.append(scored)
 
